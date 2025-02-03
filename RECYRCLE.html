@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refurbish or Replace?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #2c7a7b;
+        }
+        .question {
+            font-size: 22px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .options button {
+            margin: 10px;
+            padding: 12px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            transition: 0.3s;
+        }
+        .options button:nth-child(1) { background-color: #28a745; }
+        .options button:nth-child(2) { background-color: #17a2b8; }
+        .options button:nth-child(3) { background-color: #ffc107; }
+        .options button:nth-child(4) { background-color: #dc3545; }
+        .options button:hover {
+            opacity: 0.8;
+        }
+        #result {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 Refurbish or Replace? 🌍</h1>
+        <p>Make sustainable choices and earn Green Points!</p>
+        <div id="game"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { item: "📱 Smartphone with a cracked screen", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "💻 Laptop running slow", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "👖 Torn jeans", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "👟 Worn-out sneakers", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "🪑 Wooden chair with a broken leg", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "⚙️ Blender with weak motor", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "🍯 Glass jars from old sauces", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "📺 Old TV with faded screen", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "🧥 Worn-out winter coat", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "🛏️ Broken bed frame", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] },
+            { item: "🎮 Old gaming console", choices: ["Refurbish", "Repurpose", "Recycle", "Replace"], points: [3, 2, 1, 0] }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                const q = questions[currentQuestion];
+                let html = `<div class='question'>${q.item}</div><div class='options'>`;
+                q.choices.forEach((choice, index) => {
+                    html += `<button onclick='answer(${index})'>${choice}</button>`;
+                });
+                html += "</div>";
+                document.getElementById("game").innerHTML = html;
+            } else {
+                showResult();
+            }
+        }
+
+        function answer(index) {
+            score += questions[currentQuestion].points[index];
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            let resultText = "";
+            if (score >= 27) resultText = "🌿 Green Hero! You make the best sustainable choices!";
+            else if (score >= 18) resultText = "🍃 Eco-Warrior! You’re doing well, but there’s room to improve.";
+            else resultText = "🔄 Sustainability Rookie! Let's learn more about eco-friendly habits!";
+            
+            document.getElementById("game").innerHTML = "";
+            document.getElementById("result").innerHTML = `Your Score: ${score} <br> ${resultText}`;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
